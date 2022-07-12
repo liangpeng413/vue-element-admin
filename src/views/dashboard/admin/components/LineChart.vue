@@ -90,7 +90,7 @@ export default {
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['上周', '本周']
         },
         series: [{
           name: 'expected', itemStyle: {

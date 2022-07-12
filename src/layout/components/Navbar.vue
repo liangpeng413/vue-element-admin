@@ -53,6 +53,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
+import { logout } from '@/api/user'
 
 export default {
   components: {
@@ -75,8 +76,17 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      logout({
+        username: 'iii',
+        password: 'kkk' }).then(response => {
+        if (response.code !== 20000) {
+          this.$message.error(response.message)
+        } else {
+          this.$store.dispatch('user/logout')
+          this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+        }
+        this.loading = false
+      })
     }
   }
 }
